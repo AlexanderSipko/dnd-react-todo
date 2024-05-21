@@ -11,18 +11,19 @@
   },
   "dependencies": {
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@atlaskit/css-reset": "^6.9.0",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^4.2.1",
-    "@atlaskit/css-reset": "^6.9.0",
-    "styled-components": "^6.1.11",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
+    "styled-components": "^6.1.11",
     "vite": "^5.2.0"
   }
 }

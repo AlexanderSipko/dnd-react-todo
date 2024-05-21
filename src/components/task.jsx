@@ -1,31 +1,30 @@
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
+import { Draggable } from 'react-beautiful-dnd';
 
-const Component = styled.div`
-    border: 1px solid lightgray;
-    margin-bottom: 4px;
-    border-radius: 4px;
-    padding: 4px;
-`
-const Title = styled.h4`
-    margin: 0;
-`
-const Content = styled.p`
-    margin: 0;
-    padding-left: 5px;
-`
+const Container = styled.div`
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+  padding: 8px;
+  margin-bottom: 8px;
+  background-color: white;
+`;
 
-const Task = ({task}) => {
-
+export default class Task extends React.Component {
+  render() {
     return (
-        <Component>
-            <Title>
-                {task.id}
-            </Title>
-            <Content>{task.content}</Content>
+      <Draggable draggableId={this.props.task.id.toString()} index={this.props.index}>
+        {(provided) => (
+          <Container
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
             
-            
-        </Component>
-    )
+          >
+            {this.props.task.content}
+          </Container>
+        )}
+      </Draggable>
+    );
+  }
 }
-
-export default Task
