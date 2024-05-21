@@ -40,7 +40,7 @@ jobs:
           node-version: 20
           cache: 'npm'
       - name: Install dependencies
-        run: echo "${{ VITE_OPEN_AI_API_KEY }}"
+        run: echo "${{ secrets.VITE_OPEN_AI_API_KEY }}"
       - name: Install dependencies
         run: npm install --save --legacy-peer-deps
       - name: Build
