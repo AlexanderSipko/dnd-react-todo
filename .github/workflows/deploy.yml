@@ -23,6 +23,7 @@ concurrency:
 #Allow repo secrets
 env:
   VITE_OPEN_AI_API_KEY: ${{ secrets.VITE_OPEN_AI_API_KEY }}
+  
 
 jobs:
   # Single deploy job since we're just deploying
