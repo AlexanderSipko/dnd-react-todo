@@ -22,7 +22,7 @@ concurrency:
     
 #Allow repo secrets
 env:
-  VITE_OPEN_AI_API_KEY: dev
+  VITE_OPEN_AI_API_KEY: ${{ secrets.VITE_OPEN_AI_API_KEY }}
 
 jobs:
   # Single deploy job since we're just deploying
@@ -41,9 +41,9 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm install --save --legacy-peer-deps
-      - name: Print API Key
-        run: |
-          echo "VITE_OPEN_AI_API_KEY: $VITE_OPEN_AI_API_KEY"
+      # - name: Print API Key
+      #   run: |
+      #     echo "VITE_OPEN_AI_API_KEY: $VITE_OPEN_AI_API_KEY"
       - name: Build
         run: npm run build
       - name: Setup Pages
