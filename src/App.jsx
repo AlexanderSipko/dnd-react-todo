@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <h2>DND-react-app V</h2>
+      <h2>{import.meta.env.VITE_OPEN_AI_API_KEY}</h2>
       <Tasks1 tasksArray={initialData}/>
     </>
   )
