@@ -11,14 +11,14 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "styled-components": "^6.1.11"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^4.2.1",
     "@atlaskit/css-reset": "^6.9.0",
+    "styled-components": "^6.1.11",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
