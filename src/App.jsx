@@ -7,8 +7,7 @@ function App() {
 
   return (
     <>
-      <h2>DND-react-app</h2>
-      
+      <h2>DND-react-app V</h2>
       <Tasks1 tasksArray={initialData}/>
     </>
   )
