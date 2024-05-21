@@ -22,7 +22,7 @@ concurrency:
     
 #Allow repo secrets
 env:
-  VITE_OPEN_AI_API_KEY: ${{ secrets.VITE_OPEN_AI_API_KEY }}
+  VITE_OPEN_AI_API_KEY: ${{ secrets.VITE_API_KEY }}
   VITE_NAME: ${{ vars.VITE_NAME }}
 
 

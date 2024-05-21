@@ -7,8 +7,8 @@ function App() {
 
   return (
     <>
-      <h2>{import.meta.env.VITE_OPEN_AI_API_KEY}</h2>
-      <p>{import.meta.env.VITE_NAME}</p>
+      <p>{import.meta.env.VITE_API_KEY}</p>
+      <h2>{import.meta.env.VITE_NAME}</h2>
       <Tasks1 tasksArray={initialData}/>
     </>
   )
