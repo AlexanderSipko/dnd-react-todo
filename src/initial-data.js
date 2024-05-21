@@ -4,21 +4,22 @@ const initialData = {
       'Задача-2': { id: 'Задача-2', content: 'Добавить стили' },
       'Задача-3': { id: 'Задача-3', content: 'Добавить АПИ' },
       'Задача-4': { id: 'Задача-4', content: 'Добавить форму добавления задач' },
+      'Задача-5': { id: 'Задача-5', content: 'Добавить стили мены цвета' },
     },
     columns: {
       'column-1': {
         id: 'column-1',
-        title: 'В работе',
+        title: 'Бэклог',
         taskIds: ['Задача-1', 'Задача-2', 'Задача-3', 'Задача-4'],
       },
       'column-2': {
         id: 'column-2',
-        title: 'In progress',
-        taskIds: [],
+        title: 'В работе',
+        taskIds: ['Задача-5'],
       },
       'column-3': {
         id: 'column-3',
-        title: 'Done',
+        title: 'Выполнено',
         taskIds: [],
       },
     },

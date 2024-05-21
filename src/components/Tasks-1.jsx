@@ -32,12 +32,12 @@ class Tasks1 extends React.Component {
     const finish = this.state.columns[destination.droppableId];
 
     if (start === finish) {
-        const newTaskIds = Array.from(column.taskIds);
+        const newTaskIds = Array.from(start.taskIds);
         newTaskIds.splice(source.index, 1);
         newTaskIds.splice(destination.index, 0, draggableId);
 
         const newColumn = {
-        ...column,
+        ...start,
         taskIds: newTaskIds,
         };
 
@@ -76,8 +76,6 @@ class Tasks1 extends React.Component {
       },
     };
     this.setState(newState);
-
-    
   };
 
   render() {

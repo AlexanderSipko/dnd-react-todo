@@ -12,8 +12,8 @@ function App() {
 
   return (
     <>
-      <p>{import.meta.env.VITE_API_KEY}</p>
-      <h2>{import.meta.env.VITE_NAME}</h2>
+      <p style={{'fontSize':'10px'}}>{import.meta.env.VITE_API_KEY}</p>
+      <h4>{import.meta.env.VITE_NAME}</h4>
       <Container>
         <Tasks1 tasksArray={initialData}/>
       </Container>
