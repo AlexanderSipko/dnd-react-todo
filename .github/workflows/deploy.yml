@@ -25,6 +25,7 @@ jobs:
       #     echo -e "${{ vars.ENV_FILE }}" > .env
 #          cat ./.env
 
+
       - name: Build project
         run: npm run build
 
