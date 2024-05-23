@@ -7,46 +7,59 @@ const Container = styled.div`
   border-radius: 6px;
   padding: 8px;
   margin-bottom: 8px;
-  background-color: ${props => props.isDragging ? 'lightgreen' : 'white'};
+  background-color: ${({ $isDragging }) => ($isDragging ? 'lightgreen' : 'white')};
   display: flex;
   align-items: center;
+  transform: ${({ $isDragging }) => ($isDragging ? 'rotate(-2deg)' : 'none')};
+  transition: all 0.2s ease;
 `;
 
 const Handle = styled.div`
+  border: 0.5px solid gray;
   width: 5px;
   height: 5px;
   padding: 8px;
   border-radius: 8px;
-  background-color: ${props => props.isDragging ? 'orange' : 'lightgray'};
-  opacity: ${props => props.isDragging ? '1' : '0.5'};
+  background-color: ${({ $isDragging }) => ($isDragging ? 'orange' : 'lightgray')};
+  opacity: ${({ $isDragging }) => ($isDragging ? '1' : '0.5')};
   margin-right: 10px;
-  transform: ${props => props.isDragging ? 'scale(1.3)' : 'scale(1)'};
+  transform: ${({ $isDragging }) => ($isDragging ? 'scale(1.3)' : 'scale(1)')};
   transition: all 0.5s ease-in-out;
 `;
 
 export default class Task extends React.Component {
   render() {
+    // const isDragDisabled = this.props.task.id === 'task-1';
+    
     return (
       <Draggable
-        draggableId={this.props.task.id.toString()}
+        draggableId={this.props.task.id}
         index={this.props.index}
-        
+        // isDragDisabled={isDragDisabled}
       >
         {(provided, snapshot) => (
-          <Container
-            ref={provided.innerRef}
+          <div
             {...provided.draggableProps}
-            isDragging={snapshot.isDragging}
+            ref={provided.innerRef}
           >
-            <Handle 
-              {...provided.dragHandleProps} 
-              isDragging={snapshot.isDragging}
-            />
+         
+          <Container
+            // {...provided.draggableProps}
+            // {...provided.dragHandleProps}
+            
+            $isDragging={snapshot.isDragging}
+            
+          >
+           <Handle
+            {...provided.dragHandleProps} 
+            $isDragging={snapshot.isDragging}
+           ></Handle>
             <div>
               <h4>{this.props.task.id}</h4>
-              {this.props.task.content}
+            {this.props.task.content}
             </div>
           </Container>
+          </div>
         )}
       </Draggable>
     );

@@ -9,17 +9,17 @@ const initialData = {
     columns: {
       'column-1': {
         id: 'column-1',
-        title: 'Бэклог',
+        title: '#1 Бэклог',
         taskIds: ['Задача-1', 'Задача-2', 'Задача-3', 'Задача-4'],
       },
       'column-2': {
         id: 'column-2',
-        title: 'В работе',
+        title: '#2 В работе',
         taskIds: ['Задача-5'],
       },
       'column-3': {
         id: 'column-3',
-        title: 'Выполнено',
+        title: '#3 Выполнено',
         taskIds: [],
       },
     },
