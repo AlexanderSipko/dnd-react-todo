@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import Task from './task';
@@ -74,7 +74,8 @@ export default class Column extends React.Component {
             </TaskList>
           )}
         </Droppable>
-        <AddTask column={this.props.column.id} handlerAddTask={this.props.handlerAddTask} />
+        {!snapshot.isDragging && 
+        <AddTask column={this.props.column.id} handlerAddTask={this.props.handlerAddTask} />}
       </Container>
 
 
@@ -87,7 +88,8 @@ export default class Column extends React.Component {
 }
 
 const AddTaskContent = styled.div`
-  padding: 0px;
+  padding: 0;
+  margin: 0;
   cursor: pointer;
   ::placeholder {
       color: lightgray;
@@ -110,18 +112,21 @@ const AddTask = ({column = 'column-1',  handlerAddTask = () => {}}) => {
       setValue('')
     }
   }
+
   
   if (column === 'column-1') {
     return (
       <AddTaskContent>
         <input
           style={{
-            width:'95%', 
+            display:'box',
+            width:'97%', 
             border:'none',
             borderRadius:'4px',
             outline:'none',
             paddingLeft:'10px',
             cursor:'pointer',
+            background:'none'
             // placeholder:''
           }
           }
