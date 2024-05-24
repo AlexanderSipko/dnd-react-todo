@@ -8,6 +8,7 @@ const Container = styled.div`
   border: 1px solid lightgrey;
   border-radius: 6px;
   width: 33%;
+  height: max-content;
   display: flex;
   flex-direction: column;
   background-color: ${({ $isDragging }) => ($isDragging ?  '#f5efc2' : 'white')};
