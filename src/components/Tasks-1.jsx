@@ -8,8 +8,18 @@ import Column from './column';
 
 const Container = styled.div`
   display: flex;
-  width:100%
+  width:100%;
 `;
+
+
+class InnerList extends React.PureComponent {
+
+  render() {
+    const { column, taskMap, index } = this.props;
+    const tasks = column.taskIds.map(taskId => taskMap[taskId]);
+    return <Column column={column} tasks={tasks} index={index} handlerAddTask={this.props.handlerAddTask} />;
+  }
+}
 
 class App extends React.Component {
   state = initialData;
@@ -144,14 +154,14 @@ class App extends React.Component {
                 );
                 const isDropDisabled = false // index < this.state.homeIndex;
             return (
-              <Column
-                key={column.id}
-                column={column}
-                tasks={tasks}
-                isDropDisabled={isDropDisabled}
-                index={index}
-                handlerAddTask={this.handlerAddTask}
-              />
+              <InnerList
+                    key={column.id}
+                    column={column}
+                    index={index}
+                    taskMap={this.state.tasks}
+                    handlerAddTask={this.handlerAddTask}
+                  />
+              
             );
             
           })}

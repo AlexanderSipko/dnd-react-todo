@@ -37,6 +37,15 @@ const TaskList = styled.div`
   height: max-content;
 `;
 
+class InnerTask extends React.PureComponent {
+
+  render() {
+    return this.props.tasks.map((task, index) => (
+      <Task key={task.id} task={task} index={index} />
+    ))
+  }
+}
+
 export default class Column extends React.Component {
   render() {
     return (
@@ -68,9 +77,7 @@ export default class Column extends React.Component {
               ref={provided.innerRef}
               $isDraggingOver={snapshot.isDraggingOver}
             >
-              {this.props.tasks.map((task, index) => (
-                <Task key={task.id} task={task} index={index} />
-              ))}
+              <InnerTask tasks={this.props.tasks}/>
               {provided.placeholder}
               
             </TaskList>

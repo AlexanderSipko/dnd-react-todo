@@ -55,8 +55,11 @@ export default class Task extends React.Component {
             $isDragging={snapshot.isDragging}
            ></Handle>
             <div>
-              <h4>{this.props.task.id}</h4>
-            {this.props.task.content}
+              <h5>
+                {this.props.task.unique_number.value}
+              </h5>
+              {this.props.task.name.value}<br/>
+              {this.props.task.description.value}
             </div>
           </Container>
           </div>
