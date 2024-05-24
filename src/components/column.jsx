@@ -6,13 +6,14 @@ import Task from './task';
 const Container = styled.div`
   margin: 8px;
   border: 1px solid lightgrey;
-  border-radius: 6px;
+  border-radius: 12px;
   width: 33%;
   height: max-content;
   display: flex;
   flex-direction: column;
-  background-color: ${({ $isDragging }) => ($isDragging ?  '#f5efc2' : 'white')};
+  background-color: ${({ $isDragging }) => ($isDragging ?  '#f5efc2' : '#f1f2f4')};
   transition: background-color 0.2s ease;
+  box-shadow: var(--ds-shadow-raised, 0px 1px 1px #091e4240, 0px 0px 1px #091e424f);
 `
 const Title = styled.h3`
   padding: 6px;
@@ -29,10 +30,10 @@ const Count = styled.span`
 
 const TaskList = styled.div`
   padding: 8px;
-  background-color: ${({ $isDraggingOver }) => ($isDraggingOver ? '#f0f0f0' : 'white')};
+  background-color: ${({ $isDraggingOver }) => ($isDraggingOver ? '#e8e9ea' : '#f1f2f4')};
   transition: background-color 0.2s ease;
   flex-grow: 1;
-  min-height: 100px;
+  min-height: 50px;
   height: max-content;
 `;
 
