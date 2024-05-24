@@ -106,7 +106,7 @@ class App extends React.Component {
   };
 
   handlerAddTask = (taskName) => {
-    const newTask = { id: `Задача-${Object.keys(this.state.tasks).length + 1}`, content: taskName };
+    const newTask = { id: `t-${Object.keys(this.state.tasks).length + 1}`, content: taskName };
     const a = {
       ...this.state,
       tasks: {
@@ -142,7 +142,7 @@ class App extends React.Component {
                 const tasks = column.taskIds.map(
                     taskId => this.state.tasks[taskId],
                 );
-                const isDropDisabled = index < this.state.homeIndex;
+                const isDropDisabled = false // index < this.state.homeIndex;
             return (
               <Column
                 key={column.id}
