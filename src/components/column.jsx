@@ -9,7 +9,7 @@ const Container = styled.div`
   overflow: overlay;
   border: 1px solid lightgrey;
   border-radius: 12px;
-  width: 33%;
+  width: 72mm;
   height: max-content;
   display: flex;
   flex-direction: column;
@@ -54,7 +54,7 @@ class InnerTask extends React.PureComponent {
   
   render() {
     return this.props.tasks.map((task, index) => {
-      return <DraggableTask key={task.id} task={task} index={index} changeStar={this.props.changeStar} />
+      return <DraggableTask key={task.id} task={task} index={index} changeStar={this.props.changeStar} changeColor={this.props.changeColor} />
     })
   }
 }
@@ -93,7 +93,8 @@ export default class Column extends React.Component {
               ref={provided.innerRef}
               $isDraggingOver={snapshot.isDraggingOver}
             >
-              <InnerTask tasks={this.props.tasks} changeStar={this.props.changeStar}/>
+              <InnerTask tasks={this.props.tasks} changeStar={this.props.changeStar}
+              changeColor={this.props.changeColor}/>
               {provided.placeholder}
               
             </TaskList>

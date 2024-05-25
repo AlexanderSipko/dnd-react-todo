@@ -8,7 +8,7 @@ import Column from './column';
 
 const Container = styled.div`
   display: flex;
-  width:100%;
+  /* width:100%; */
   
 `;
 
@@ -19,7 +19,8 @@ class InnerList extends React.PureComponent {
     const { column, taskMap, index } = this.props;
     const tasks = column.taskIds.map(taskId => taskMap[taskId]);
     return <Column column={column} tasks={tasks} index={index} handlerAddTask={this.props.handlerAddTask} columnEffect={this.props.columnEffect}
-    changeStar={this.props.changeStar} />;
+    changeStar={this.props.changeStar}
+    changeColor={this.props.changeColor} />;
   }
 }
 
@@ -51,6 +52,21 @@ class App extends React.Component {
       }
     }
     this.setState(a);
+  }
+
+  changeColor = (taskID, filed, color) => {
+    // console.log(startIndex)
+    const updateTask = this.state.tasks[taskID]
+    // console.log(type)
+    updateTask[filed].value = color
+    const newTasks = {
+      ...this.state,
+      tasks: {
+        ...this.state.tasks,
+        [taskID]: updateTask,
+      }
+    }
+    this.setState(newTasks);
   }
   
   countEffect = (newState, setState) => {
@@ -172,7 +188,8 @@ class App extends React.Component {
       date_expected:{value:'2024'},
       effective_expected:{value:0},
       star:{value:1},
-      show:{value:false}
+      show:{value:false},
+      color:{value:'gray'}
     };
     const a = {
       ...this.state,
@@ -218,6 +235,7 @@ class App extends React.Component {
                     handlerAddTask={this.handlerAddTask}
                     columnEffect={this.state.columnEffect}
                     changeStar={this.changeStar}
+                    changeColor={this.changeColor}
                   />
             );
           })}

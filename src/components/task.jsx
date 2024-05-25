@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import styled from 'styled-components';
+import {styled, keyframes} from 'styled-components';
 import { Draggable } from 'react-beautiful-dnd';
-import SameRegister from '../assets/same-register.png'
-import DifferentRegister from '../assets/different-register.png'
+import { useDoubleTap } from 'use-double-tap';
 import Hide from '../assets/hide.png'
 import Show from '../assets/show.png'
 import Star from '../assets/star.png'
@@ -18,7 +17,9 @@ export default class DraggableTask extends React.Component {
         isDragDisabled={isDragDisabled}
       >
         {(provided, snapshot) => (
-            <TaskCard provided={provided} snapshot={snapshot} task={this.props.task} changeStar={this.props.changeStar}/>
+            <TaskCard provided={provided} snapshot={snapshot} task={this.props.task}
+            changeStar={this.props.changeStar}
+            changeColor={this.props.changeColor}/>
         )}
       </Draggable>
     );
@@ -132,28 +133,41 @@ const ImageDiv = styled.div`
   padding: 2px 0 0 2px;
   border-top: 0.5px solid #c4e4cc;
   max-width: 98%;
+  align-items: center;
 `
 
 const ImageStar = styled.div`
-
+  cursor: pointer;
   img {
     height:12px;
     opacity: ${props => props.$star ? 1 : 0.2};
+    margin: 0 1px 0 1px;
+    &:hover {
+      transform: scale(1.4) translateY(-2px);
+      /* transform: translateY(-2px); */
+    }
+    transition: all 0.2s ease-in-out;
   }
 `
 
 const ImageShow = styled.div`
 /* flex-direction: 1; */
   /* flex: 1; */
-  margin-right: auto;
+  /* margin-right: auto; */
+  cursor: pointer;
   img {
     margin: 0;
     height:12px;
     opacity: ${props => props.$show ? 1 : 0.2};
+    &:hover {
+      transform: scale(1.4) translateY(-2px);
+      /* transform: translateY(-2px); */
+    }
+    transition: all 0.2s ease-in-out;
   }
 `
 
-const TaskCard = ({provided={}, snapshot={}, task={}, changeStar}) => {
+const TaskCard = ({provided={}, snapshot={}, task={}, changeStar, changeColor}) => {
   const nameLength = 45
 
   const [displayedTextName, setDisplayedTextName] = useState(task.name.value.slice(0, nameLength));
@@ -182,6 +196,11 @@ const TaskCard = ({provided={}, snapshot={}, task={}, changeStar}) => {
     }
     return abbr;
   }
+
+  const bindTaskDescriptions = useDoubleTap((event) => {
+    // Your action here
+    setIsShowDescriptions(prev => !prev)}
+  );
 
   return (
     <div {...provided.draggableProps} ref={provided.innerRef}>
@@ -218,6 +237,7 @@ const TaskCard = ({provided={}, snapshot={}, task={}, changeStar}) => {
 
               <DescribeTask
                 $isShowDescriptions={isShowDescriptions}
+                {...bindTaskDescriptions}
                 onDoubleClick={() => {setIsShowDescriptions(prev => !prev)}}>
                   {isShowDescriptions ? task.description.value || '- нет описания' : task.description.value.slice(0, nameLength/2)}
                 </DescribeTask>
@@ -233,7 +253,7 @@ const TaskCard = ({provided={}, snapshot={}, task={}, changeStar}) => {
               </TaskCreatorDoer>
 
               <ImageDiv >
-                {[1, 2, 3].map(star => (
+              {[1, 2, 3].map(star => (
                   <ImageStar key={task.id + '_star_' + star} $star={star <= task.star.value} >
                     <img onClick={
                       () => changeStar(
@@ -243,13 +263,110 @@ const TaskCard = ({provided={}, snapshot={}, task={}, changeStar}) => {
                       } src={Star}/>
                   </ImageStar>
                 ))}
-                  <div style={{flex: 1}}></div>
-                  <ImageShow onClick={() => {setIsShowDemo(prev => !prev)}} $show={isShowDemo} >
+                <div style={{flex: 1}}></div>
+              <ImageShow onClick={() => {setIsShowDemo(prev => !prev)}} $show={isShowDemo} >
                     <img src={isShowDemo ? Show : Hide}/>
                   </ImageShow>
+              
+                  <div style={{flex: 1}}></div>
+                  <Tag
+                    changeColor={changeColor} color={task.color.value}
+                    taskId={task.id}
+                    />
+                 
               </ImageDiv>
             </TaskContent>
           </Container>
       </div>
+  )
+}
+
+const TagDiv = styled.div`
+  width: 40px;
+  display: flex;
+    width: 80px;
+    align-items:center;
+    justify-content: flex-end;
+`
+
+const rotateFrames = keyframes`
+  0% {
+    width: 20px;
+    /* align-items: flex-end; */
+  }
+  50% {
+    width: 80px;
+  }
+  100% {
+    width: 20px;
+  }
+`;
+
+const ColorTeg = styled.div`
+  border-radius: 6px;
+  height: 8px;
+  width: 60px;
+  background: ${props => (props.$color)};
+  margin: 2px 4px 2px 4px;
+  opacity: 0.5;
+  cursor: pointer;
+  &:hover {
+      transform: scale(1.1);
+    }
+  animation: ${props => (props.$isAnimate && (props.$rotateFrames))} 5s ease-in-out infinite;
+`
+
+const ColorTegChoice = styled.div`
+    /* position:relative; */
+    /* border-radius: 10px; */
+    width: 80px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+const CircTag = styled.div`
+  border-radius: 10px;
+  height: 11px;
+  width: 11px;
+  background: ${props => (props.$color)};
+  margin: 2px 4px 2px 4px;
+  opacity: 0.6;
+
+  cursor: pointer;
+  &:hover {
+      transform: scale(1.8);
+      /* transform: translateY(-2px); */
+    }
+    transition: all 0.2s ease-in-out;
+`
+const Tag = ({color, changeColor, taskId}) => {
+
+  const colors = ['red', 'green', 'blue', 'gray']
+
+  const [ isPik, setIsPik ] = useState(true)
+  // const [ color, setColor ] = useState('red')
+
+  const handlerChangeColor = (color) => {
+    changeColor(taskId, 'color', color)
+    setIsPik(prev => !prev)
+  }
+
+  const bindTaskDescriptions = useDoubleTap((event) => {
+    // Your action here
+    setIsPik(prev => !prev)}
+  );
+
+  return (
+    <TagDiv {...bindTaskDescriptions} onDoubleClick={() => {setIsPik(prev => !prev)}}>
+        {isPik ?
+        <ColorTeg $color={color} $rotateFrames={rotateFrames} $isAnimate={color === 'red'}></ColorTeg>:
+        <ColorTegChoice>  
+        {colors.map(color => (
+          <CircTag key={color} onClick={() => {handlerChangeColor(color)}} $color={color}></CircTag>
+        ))}
+        </ColorTegChoice>
+        }
+    </TagDiv>
   )
 }

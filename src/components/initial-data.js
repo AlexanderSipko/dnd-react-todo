@@ -35,6 +35,9 @@ const tasks = {
           },
           "show": {
             "value": true
+          },
+          "color": {
+            "value": 'red'
           }
       },
       "2094": {
@@ -71,6 +74,9 @@ const tasks = {
           },
           "show": {
             "value": false
+          },
+          "color": {
+            "value": 'red'
           }
       },
       "2093": {
@@ -107,6 +113,9 @@ const tasks = {
           },
           "show": {
             "value": false
+          },
+          "color": {
+            "value": 'blue'
           }
       },
       "2092": {
@@ -143,6 +152,9 @@ const tasks = {
           },
           "show": {
             "value": true
+          },
+          "color": {
+            "value": 'gray'
           }
       },
       "2091": {
@@ -179,6 +191,9 @@ const tasks = {
           },
           "show": {
             "value": false
+          },
+          "color": {
+            "value": 'green'
           }
       }
   },
