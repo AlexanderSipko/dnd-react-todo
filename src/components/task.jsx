@@ -199,7 +199,8 @@ const TaskCard = ({provided={}, snapshot={}, task={}, changeStar, changeColor}) 
 
   const bindTaskDescriptions = useDoubleTap((event) => {
     // Your action here
-    setIsShowDescriptions(prev => !prev)}
+    setIsShowDescriptions(prev => !prev)
+    console.log('asd')}
   );
 
   return (
@@ -233,12 +234,11 @@ const TaskCard = ({provided={}, snapshot={}, task={}, changeStar, changeColor}) 
                 {task.name.value}</Tittle>
               </WrapperTitle>
               
-              
-
               <DescribeTask
                 $isShowDescriptions={isShowDescriptions}
                 {...bindTaskDescriptions}
-                onDoubleClick={() => {setIsShowDescriptions(prev => !prev)}}>
+                // onDoubleClick={() => {setIsShowDescriptions(prev => !prev)}}
+                >
                   {isShowDescriptions ? task.description.value || '- нет описания' : task.description.value.slice(0, nameLength/2)}
                 </DescribeTask>
               <TaskCreatorDoer
@@ -352,13 +352,15 @@ const Tag = ({color, changeColor, taskId}) => {
     setIsPik(prev => !prev)
   }
 
-  const bindTaskDescriptions = useDoubleTap((event) => {
+  const bindTaskTag = useDoubleTap((event) => {
     // Your action here
     setIsPik(prev => !prev)}
   );
 
   return (
-    <TagDiv {...bindTaskDescriptions} onDoubleClick={() => {setIsPik(prev => !prev)}}>
+    <TagDiv {...bindTaskTag}
+    // onDoubleClick={() => {setIsPik(prev => !prev)}}
+    >
         {isPik ?
         <ColorTeg $color={color} $rotateFrames={rotateFrames} $isAnimate={color === 'red'}></ColorTeg>:
         <ColorTegChoice>  
