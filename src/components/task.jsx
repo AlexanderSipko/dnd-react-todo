@@ -124,6 +124,7 @@ const DescribeTask = styled.div`
   margin: 4px 4px 4px 0;
   max-width: 98%;
   word-break: break-all;
+  white-space: break-spaces;
 `
 
 const ImageDiv = styled.div`
