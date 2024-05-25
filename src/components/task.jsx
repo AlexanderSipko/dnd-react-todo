@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import {styled, keyframes} from 'styled-components';
 import { Draggable } from 'react-beautiful-dnd';
 import { useDoubleTap } from 'use-double-tap';
-import Hide from '../assets/hide.png'
-import Show from '../assets/show.png'
 import Star from '../assets/star.png'
 
 export default class DraggableTask extends React.Component {
@@ -244,7 +242,7 @@ const TaskCard = ({provided={}, snapshot={}, task={}, changeStar, changeColor, c
                 {...bindTaskDescriptions}
                 // onDoubleClick={() => {setIsShowDescriptions(prev => !prev)}}
                 >
-                <Icons>📌</Icons>  {isShowDescriptions ? task.description.value || '- нет описания' : task.description.value.slice(0, nameLength/2)}
+                <Icons>📋</Icons>  {isShowDescriptions ? task.description.value || '- нет описания' : task.description.value.slice(0, nameLength/2)}
                 </DescribeTask>
               <TaskCreatorDoer
                 $isShowUser={isShowUser}

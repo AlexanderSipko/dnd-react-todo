@@ -1,28 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import '@atlaskit/css-reset';
+
 import styled from 'styled-components';
+import '@atlaskit/css-reset';
+
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import initialData from './initial-data';
-import Column from './column';
+import RenderList from './InnerList';
 
 const Container = styled.div`
   display: flex;
-  /* width:100%; */
-  
 `;
 
-
-class InnerList extends React.PureComponent {
-
-  render() {
-    const { column, taskMap, index } = this.props;
-    const tasks = column.taskIds.map(taskId => taskMap[taskId]);
-    return <Column column={column} tasks={tasks} index={index} handlerAddTask={this.props.handlerAddTask} columnEffect={this.props.columnEffect}
-    changeStar={this.props.changeStar}
-    changeColor={this.props.changeColor} />;
-  }
-}
 
 const countEffect = (newState, setState) => {
   let newEffect = Object.fromEntries(newState.columnOrder.map(item => [item, 0]))
@@ -36,8 +23,8 @@ const countEffect = (newState, setState) => {
   return {...newState, columnEffect:newEffect}
 }
 
-class App extends React.Component {
-  state = countEffect(initialData)
+class Board extends React.Component {
+  state = countEffect(this.props.tasksArray)
 
   changeStar = (type, taskID, startIndex) => {
     // console.log(startIndex)
@@ -218,36 +205,31 @@ class App extends React.Component {
       >
         <Droppable droppableId='all-column' direction='horizontal' type='column'
         >
-            {(provided) => (
-                <Container {...provided.draggableProps} ref={provided.innerRef}>
-                {this.state.columnOrder.map((columnId, index) => {
-                const column = this.state.columns[columnId];
-                // const tasks = column.taskIds.map(
-                //     taskId => this.state.tasks[taskId],
-                // );
-                const isDropDisabled = false // index < this.state.homeIndex;
-            return (
-              <InnerList
-                    key={column.id}
-                    column={column}
-                    index={index}
-                    taskMap={this.state.tasks}
-                    handlerAddTask={this.handlerAddTask}
-                    columnEffect={this.state.columnEffect}
-                    changeStar={this.changeStar}
-                    changeColor={this.changeColor}
-                  />
-            );
-          })}
-         {provided.placeholder}
-        </Container>
-            )}
+          {(provided) => {
+
+          
+            const props = {
+              providedDraggableProps:provided.draggableProps,
+              providedInnerRef:provided.innerRef,
+              providedPlaceholder:provided.placeholder,
+              columnOrder:this.state.columnOrder,
+              columns:this.state.columns,
+              tasks:this.state.tasks,
+              // TODO dispatch updateState in tasks
+              handlerAddTask:this.handlerAddTask,
+              columnEffect:this.countEffect,
+              changeStar:this.changeStar,
+              changeColor:this.changeColor
+          }
+            return <RenderList props={props}/>
+          }}
+            
         </Droppable>
       </DragDropContext>
     );
   }
 }
 
-export default App
+export default Board
 
 

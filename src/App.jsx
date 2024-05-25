@@ -1,8 +1,8 @@
-import { useState } from 'react'
-import initialData from './components/initial-data'
-import App from './components/Tasks-1'
+import LeftMenu from './layout/LeftMenu';
+import Board from './layout/Board'
 import styled from 'styled-components';
 import '@atlaskit/css-reset'
+import initialData from './assets/initial-data'
 
 const Container = styled.div`
   display: flex;
@@ -11,13 +11,10 @@ const Container = styled.div`
 function App_1() {
 
   return (
-    <>
-      {/* <p style={{'fontSize':'10px'}}>{import.meta.env.VITE_API_KEY}</p> */}
-      <h4>{import.meta.env.VITE_NAME}</h4>
       <Container>
-        <App tasksArray={initialData}/>
+        <LeftMenu/>
+          <Board tasksArray={initialData}/>
       </Container>
-    </>
   )
 }
 
