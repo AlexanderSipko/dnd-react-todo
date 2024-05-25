@@ -179,7 +179,7 @@ const TaskCard = ({provided={}, snapshot={}, task={}, changeStar, changeColor, c
   const [isAbbreviateText, setIsAbbreviateText] = useState(true);
   const [isShowDescriptions, setIsShowDescriptions] = useState(false);
   const [isShowUser, setIsShowUser] = useState(false);
-  const [isShowDemo, setIsShowDemo] = useState(columnId === 'column-3');
+  const [isShowDemo, setIsShowDemo] = useState(columnId === 'column-3' || columnId === 'column-4');
 
   const handleMouseEnterName = () => {
     setDisplayedTextName(task.name.value);
