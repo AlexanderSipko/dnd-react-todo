@@ -9,6 +9,7 @@ import Column from './column';
 const Container = styled.div`
   display: flex;
   width:100%;
+  
 `;
 
 
@@ -17,13 +18,53 @@ class InnerList extends React.PureComponent {
   render() {
     const { column, taskMap, index } = this.props;
     const tasks = column.taskIds.map(taskId => taskMap[taskId]);
-    return <Column column={column} tasks={tasks} index={index} handlerAddTask={this.props.handlerAddTask} />;
+    return <Column column={column} tasks={tasks} index={index} handlerAddTask={this.props.handlerAddTask} columnEffect={this.props.columnEffect}
+    changeStar={this.props.changeStar} />;
   }
 }
 
-class App extends React.Component {
-  state = initialData;
+const countEffect = (newState, setState) => {
+  let newEffect = Object.fromEntries(newState.columnOrder.map(item => [item, 0]))
+  // console.log(Object.fromEntries(newState.columnOrder.map(item => [item, 0])))
+  newState.columnOrder.map(column => {
+    const orderTasks = newState.columns[column].taskIds
+    orderTasks.map(task => {
+      newEffect[column] = newState.tasks[task].effective_expected.value + newEffect[column]
+    })
+  })
+  return {...newState, columnEffect:newEffect}
+}
 
+class App extends React.Component {
+  state = countEffect(initialData)
+
+  changeStar = (type, taskID, startIndex) => {
+    // console.log(startIndex)
+    const updateTask = this.state.tasks[taskID]
+    // console.log(type)
+    updateTask.star.value = startIndex
+    const a = {
+      ...this.state,
+      tasks: {
+        ...this.state.tasks,
+        [taskID]: updateTask,
+      }
+    }
+    this.setState(a);
+  }
+  
+  countEffect = (newState, setState) => {
+    let newEffect = Object.fromEntries(newState.columnOrder.map(item => [item, 0]))
+    // console.log(Object.fromEntries(newState.columnOrder.map(item => [item, 0])))
+    newState.columnOrder.map(column => {
+      const orderTasks = newState.columns[column].taskIds
+      orderTasks.map(task => {
+        newEffect[column] = newState.tasks[task].effective_expected.value + newEffect[column]
+      })
+    })
+    setState({...this.state, columnEffect:newEffect})
+  }
+  
   onDragStart = start => {
     const homeIndex = this.state.columnOrder.indexOf(start.source.droppableId);
 
@@ -84,8 +125,8 @@ class App extends React.Component {
           [newHome.id]: newHome,
         },
       };
-
-      this.setState(newState);
+      // this.countEffect(newState)
+      this.setState(countEffect(newState));
       return;
     }
 
@@ -112,11 +153,27 @@ class App extends React.Component {
         [newForeign.id]: newForeign,
       },
     };
-    this.setState(newState);
+    // this.countEffect(newState)
+    this.setState(countEffect(newState));
   };
 
   handlerAddTask = (taskName) => {
-    const newTask = { id: `t-${Object.keys(this.state.tasks).length + 1}`, content: taskName };
+    const t_number_task  = Object.keys(this.state.tasks).length + 1
+
+    const newTask = {
+      id: `t-${t_number_task}`,
+      name: {value:taskName},
+      unique_number:{value:'t-'+t_number_task},
+      division_name:{value:'Малая автоматизация'},
+      description:{value:'нет описания'},
+      task_doer_user_text:{value:''},
+      task_create_user:{value:'Эту задачу создал ты'},
+      status:{value:'-'},
+      date_expected:{value:'2024'},
+      effective_expected:{value:0},
+      star:{value:1},
+      show:{value:false}
+    };
     const a = {
       ...this.state,
       tasks: {
@@ -132,8 +189,8 @@ class App extends React.Component {
       },
       columnOrder: [...this.state.columnOrder],
     }
-    // console.log(a)
-    this.setState(a);
+    
+    this.setState(countEffect(a));
   };
 
   render() {
@@ -143,15 +200,14 @@ class App extends React.Component {
         onDragEnd={this.onDragEnd}
       >
         <Droppable droppableId='all-column' direction='horizontal' type='column'
-
         >
             {(provided) => (
                 <Container {...provided.draggableProps} ref={provided.innerRef}>
                 {this.state.columnOrder.map((columnId, index) => {
                 const column = this.state.columns[columnId];
-                const tasks = column.taskIds.map(
-                    taskId => this.state.tasks[taskId],
-                );
+                // const tasks = column.taskIds.map(
+                //     taskId => this.state.tasks[taskId],
+                // );
                 const isDropDisabled = false // index < this.state.homeIndex;
             return (
               <InnerList
@@ -160,20 +216,15 @@ class App extends React.Component {
                     index={index}
                     taskMap={this.state.tasks}
                     handlerAddTask={this.handlerAddTask}
+                    columnEffect={this.state.columnEffect}
+                    changeStar={this.changeStar}
                   />
-              
             );
-            
           })}
          {provided.placeholder}
         </Container>
-         
             )}
-
-        
-        
         </Droppable>
-        
       </DragDropContext>
     );
   }

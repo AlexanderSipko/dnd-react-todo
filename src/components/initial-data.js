@@ -7,28 +7,34 @@ const tasks = {
               "value": "2405056"
           },
           "name": {
-              "value": "Авто формирование документов СЭД"
+              "value": "Авто формирование документов ДСЕ"
           },
           "division_name": {
               "value": "Прочее"
           },
           "description": {
-              "value": "Сформировать карточку в сэд с подгрузкой докмента"
+              "value": "Сформировать карточку в дсе с погрузкой документа"
           },
           "task_doer_user_text": {
-              "value": "Кутняхов Ю."
+              "value": "Смелый Р."
           },
           "task_create_user": {
-              "value": "Сипко Александр"
+              "value": "Портнов В."
           },
           "status": {
               "value": "В работе"
           },
           "date_expected": {
-              "value": "06.30.2024"
+              "value": "06.30.2020"
           },
           "effective_expected": {
               "value": 0.0
+          },
+          "star": {
+              "value": 3
+          },
+          "show": {
+            "value": true
           }
       },
       "2094": {
@@ -37,28 +43,34 @@ const tasks = {
               "value": "2405048"
           },
           "name": {
-              "value": "Автоматизация в очереди ОТРС \"ЖКУ:ДОМ\""
+              "value": "Автоматизация в очереди СРОТ \"ЖКУ:МОД\""
           },
           "division_name": {
               "value": "Реализация и эксплуатация имущества"
           },
           "description": {
-              "value": "Автоматизация в очереди ОТРС \"ЖКУ:ДОМ\""
+              "value": "Автоматизация в очереди СРОТ \"ЖКУ:МОД\""
           },
           "task_doer_user_text": {
-              "value": "Михалин С. С., Лынова М. Ю."
+              "value": "Иванов С. С., Иванова М. Ю."
           },
           "task_create_user": {
-              "value": "Михалин Сергей"
+              "value": "Иванов С."
           },
           "status": {
               "value": "Создано"
           },
           "date_expected": {
-              "value": "07.01.2024"
+              "value": "07.01.2020"
           },
           "effective_expected": {
-              "value": 0.2
+              "value": 1.5
+          },
+          "star": {
+              "value": 2
+          },
+          "show": {
+            "value": false
           }
       },
       "2093": {
@@ -67,7 +79,7 @@ const tasks = {
               "value": "2405047"
           },
           "name": {
-              "value": "автоматизация по модерации проектов на строим.дом.рф"
+              "value": "автоматизация по модерации проектов на строим"
           },
           "division_name": {
               "value": "Контакт центр"
@@ -79,16 +91,22 @@ const tasks = {
               "value": ""
           },
           "task_create_user": {
-              "value": "Григорьев Константин"
+              "value": "Великий B."
           },
           "status": {
               "value": "Создано"
           },
           "date_expected": {
-              "value": "08.15.2024"
+              "value": "08.15.2020"
           },
           "effective_expected": {
-              "value": 0.3
+              "value": 0.0
+          },
+          "star": {
+              "value": 0
+          },
+          "show": {
+            "value": false
           }
       },
       "2092": {
@@ -109,16 +127,22 @@ const tasks = {
               "value": ""
           },
           "task_create_user": {
-              "value": "Григорьев Константин"
+              "value": "Великий В."
           },
           "status": {
               "value": "Создано"
           },
           "date_expected": {
-              "value": "10.15.2024"
+              "value": "10.15.2020"
           },
           "effective_expected": {
-              "value": 0.3
+              "value": 2.3
+          },
+          "star": {
+              "value": 2
+          },
+          "show": {
+            "value": true
           }
       },
       "2091": {
@@ -127,7 +151,7 @@ const tasks = {
               "value": "2405045"
           },
           "name": {
-              "value": "автоматизация отчетов по модерации на строим.дом.рф"
+              "value": "автоматизация отчетов по модерации на строим."
           },
           "division_name": {
               "value": "Контакт центр"
@@ -139,16 +163,22 @@ const tasks = {
               "value": ""
           },
           "task_create_user": {
-              "value": "Григорьев Константин"
+              "value": "Великий В."
           },
           "status": {
               "value": "Создано"
           },
           "date_expected": {
-              "value": "10.15.2024"
+              "value": "10.15.2020"
           },
           "effective_expected": {
-              "value": 0.2
+              "value": 1.2
+          },
+          "star": {
+              "value": 3
+          },
+          "show": {
+            "value": false
           }
       }
   },
@@ -217,17 +247,27 @@ const initialData = {
     columns: {
       'column-1': {
         id: 'column-1',
-        title: '#1 Бэклог',
-        taskIds: ['2102', '2094', '2093'],
+        title: 'Бэклог',
+        taskIds: ['2094', '2092', '2093'],
       },
       'column-2': {
         id: 'column-2',
-        title: '#2 В работе',
-        taskIds: ['2092', '2091'],
+        title: 'В работе',
+        taskIds: ['2102', '2091'],
       },
       'column-3': {
         id: 'column-3',
-        title: '#3 Выполнено',
+        title: 'Тест',
+        taskIds: [],
+      },
+      'column-4': {
+        id: 'column-4',
+        title: 'Выполнено',
+        taskIds: [],
+      },
+      'column-5': {
+        id: 'column-5',
+        title: 'Выполнено',
         taskIds: [],
       },
     },

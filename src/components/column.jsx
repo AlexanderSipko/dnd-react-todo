@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import Task from './task';
+import DraggableTask from './task';
 
 const Container = styled.div`
   margin: 8px;
+  max-height:95vh;
+  overflow: overlay;
   border: 1px solid lightgrey;
   border-radius: 12px;
   width: 33%;
@@ -16,33 +18,44 @@ const Container = styled.div`
   box-shadow: var(--ds-shadow-raised, 0px 1px 1px #091e4240, 0px 0px 1px #091e424f);
 `
 const Title = styled.h3`
-  padding: 6px;
+position:relative;
+  padding: 4px 0 0 10px;
   /* width: 100%; */
 `;
 
-const Count = styled.span`
-  padding: 4px;
-  font-size: 16px;
+const StatusName = styled.span`
+  padding: 2px 0 0 0;
+  font-size: 14px;
   text-align: right;
-  color:  ${({ $isDragging }) => ($isDragging ?  'black' : 'lightgray')};
+  color:  ${({ $isDragging }) => ($isDragging ?  'black' : 'gray')};
   transition: color 0.2s ease;
 `;
 
+const CountEffect = styled.div`
+  position: absolute;
+  top: 2px;
+  right: 10px;
+  font-size: 12px;
+  opacity: 0.6;
+`
+
 const TaskList = styled.div`
   padding: 8px;
-  background-color: ${({ $isDraggingOver }) => ($isDraggingOver ? '#e8e9ea' : '#f1f2f4')};
+  background-color: ${({ $isDraggingOver }) => ($isDraggingOver ? '#d0f8cd' : '#f1f2f4')};
   transition: background-color 0.2s ease;
   flex-grow: 1;
   min-height: 50px;
   height: max-content;
+  border-radius: 12px;
 `;
 
 class InnerTask extends React.PureComponent {
 
+  
   render() {
-    return this.props.tasks.map((task, index) => (
-      <Task key={task.id} task={task} index={index} />
-    ))
+    return this.props.tasks.map((task, index) => {
+      return <DraggableTask key={task.id} task={task} index={index} changeStar={this.props.changeStar} />
+    })
   }
 }
 
@@ -60,10 +73,13 @@ export default class Column extends React.Component {
             $isDragging={snapshot.isDragging}
             >
         <Title {...provided.dragHandleProps} >
-            {this.props.column.title} 
-            <Count $isDragging={snapshot.isDragging}>
-              {this.props.tasks.length}
-              </Count>
+              <StatusName $isDragging={snapshot.isDragging}>
+                {this.props.column.title} 
+              </StatusName>
+              <CountEffect>
+                 {this.props.tasks.length > 0 && this.props.columnEffect[this.props.column.id] > 0 && `задач ${this.props.tasks.length} эффект ${this.props.columnEffect[this.props.column.id]}`}
+                 {this.props.tasks.length > 0 && this.props.columnEffect[this.props.column.id] === 0 && `задач ${this.props.tasks.length}`}
+              </CountEffect>
         </Title>
         
         <Droppable 
@@ -77,7 +93,7 @@ export default class Column extends React.Component {
               ref={provided.innerRef}
               $isDraggingOver={snapshot.isDraggingOver}
             >
-              <InnerTask tasks={this.props.tasks}/>
+              <InnerTask tasks={this.props.tasks} changeStar={this.props.changeStar}/>
               {provided.placeholder}
               
             </TaskList>
