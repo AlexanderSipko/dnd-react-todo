@@ -146,7 +146,7 @@ const AddTask = ({column = 'column-1',  handlerAddTask = () => {}}) => {
         <input
           style={{
             display:'box',
-            width:'97%', 
+            // width:'97%', 
             border:'none',
             borderRadius:'4px',
             outline:'none',
