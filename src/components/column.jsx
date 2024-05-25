@@ -19,7 +19,7 @@ const Container = styled.div`
 `
 const Title = styled.h3`
 position:relative;
-  padding: 4px 0 0 10px;
+  padding: 4px 0 0 5px;
   /* width: 100%; */
 `;
 

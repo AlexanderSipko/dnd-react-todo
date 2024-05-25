@@ -155,7 +155,7 @@ const ImageShow = styled.div`
 /* flex-direction: 1; */
   /* flex: 1; */
   /* margin-right: auto; */
-  cursor: pointer;
+  /* cursor: pointer; */
   img {
     margin: 0;
     height:12px;

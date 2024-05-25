@@ -311,12 +311,12 @@ const initialData = {
       },
       'column-3': {
         id: 'column-3',
-        title: 'Тест',
+        title: 'Готово',
         taskIds: ['2095'],
       },
       'column-4': {
         id: 'column-4',
-        title: 'Выполнено',
+        title: 'Архив',
         taskIds: [],
       },
       'column-5': {
@@ -326,7 +326,7 @@ const initialData = {
       },
     },
     // Facilitate reordering of the columns
-    columnOrder: ['column-1', 'column-2', 'column-3', ],
+    columnOrder: ['column-1', 'column-2', 'column-3', 'column-4'],
   };
   
 export default initialData;
