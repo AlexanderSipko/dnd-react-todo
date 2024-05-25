@@ -13,7 +13,7 @@ const tasks = {
               "value": "Прочее"
           },
           "description": {
-              "value": "Сформировать карточку в дсе с погрузкой документа"
+              "value": ""
           },
           "task_doer_user_text": {
               "value": "Смелый Р."

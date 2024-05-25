@@ -212,8 +212,9 @@ const TaskCard = ({provided={}, snapshot={}, task={}, changeStar, changeColor, c
 
   const bindTaskDescriptions = useDoubleTap((event) => {
     // Your action here
-    setIsShowDescriptions(prev => !prev)
-    console.log('asd')}
+    task.description.value && setIsShowDescriptions(prev => !prev)
+    // console.log('asd')}
+  }
   );
 
   return (
@@ -261,7 +262,13 @@ const TaskCard = ({provided={}, snapshot={}, task={}, changeStar, changeColor, c
                 {...bindTaskDescriptions}
                 // onDoubleClick={() => {setIsShowDescriptions(prev => !prev)}}
                 >
-                <Icons>📋</Icons>  {isShowDescriptions ? task.description.value || '- нет описания' : task.description.value.slice(0, nameLength/2)}
+                
+                {task.description.value.length !== 0 && <Icons>📋</Icons>}
+                {task.description.value.length === 0 && '❗- нет описания задачи'}
+
+                {isShowDescriptions && task.description.value.length > 0 ? 
+                  task.description.value : 
+                  task.description.value.slice(0, nameLength/2)}
                 </DescribeTask>
               <TaskCreatorDoer
                 $isShowUser={isShowUser}

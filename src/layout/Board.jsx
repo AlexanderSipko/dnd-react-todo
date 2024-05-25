@@ -168,7 +168,7 @@ class Board extends React.Component {
       name: {value:taskName},
       unique_number:{value:'t-'+t_number_task},
       division_name:{value:'Малая автоматизация'},
-      description:{value:'нет описания'},
+      description:{value:''},
       task_doer_user_text:{value:''},
       task_create_user:{value:'Эту задачу создал ты'},
       status:{value:'-'},
