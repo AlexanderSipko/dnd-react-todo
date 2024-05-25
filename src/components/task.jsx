@@ -19,7 +19,8 @@ export default class DraggableTask extends React.Component {
         {(provided, snapshot) => (
             <TaskCard provided={provided} snapshot={snapshot} task={this.props.task}
             changeStar={this.props.changeStar}
-            changeColor={this.props.changeColor}/>
+            changeColor={this.props.changeColor}
+            columnId={this.props.columnId}/>
         )}
       </Draggable>
     );
@@ -167,14 +168,18 @@ const ImageShow = styled.div`
   }
 `
 
-const TaskCard = ({provided={}, snapshot={}, task={}, changeStar, changeColor}) => {
+const Icons = styled.span`
+  opacity: 0.5;
+`
+
+const TaskCard = ({provided={}, snapshot={}, task={}, changeStar, changeColor, columnId}) => {
   const nameLength = 45
 
   const [displayedTextName, setDisplayedTextName] = useState(task.name.value.slice(0, nameLength));
   const [isAbbreviateText, setIsAbbreviateText] = useState(true);
   const [isShowDescriptions, setIsShowDescriptions] = useState(false);
   const [isShowUser, setIsShowUser] = useState(false);
-  const [isShowDemo, setIsShowDemo] = useState(false);
+  const [isShowDemo, setIsShowDemo] = useState(columnId === 'column-3');
 
   const handleMouseEnterName = () => {
     setDisplayedTextName(task.name.value);
@@ -239,15 +244,17 @@ const TaskCard = ({provided={}, snapshot={}, task={}, changeStar, changeColor}) 
                 {...bindTaskDescriptions}
                 // onDoubleClick={() => {setIsShowDescriptions(prev => !prev)}}
                 >
-                  {isShowDescriptions ? task.description.value || '- нет описания' : task.description.value.slice(0, nameLength/2)}
+                <Icons>📌</Icons>  {isShowDescriptions ? task.description.value || '- нет описания' : task.description.value.slice(0, nameLength/2)}
                 </DescribeTask>
               <TaskCreatorDoer
                 $isShowUser={isShowUser}
                 onDoubleClick={() => {setIsShowUser(prev => !prev)}}>
                 <p>
+                  <Icons>👨‍💼</Icons>
                 {task.task_create_user.value}
                 </p>
                 <p>
+                  <Icons>🧑‍💻</Icons>
                 {isShowUser? task.task_doer_user_text.value || '...' : task.task_doer_user_text.value.slice(0, nameLength/3)}
                 </p>
               </TaskCreatorDoer>
@@ -264,8 +271,10 @@ const TaskCard = ({provided={}, snapshot={}, task={}, changeStar, changeColor}) 
                   </ImageStar>
                 ))}
                 <div style={{flex: 1}}></div>
-              <ImageShow onClick={() => {setIsShowDemo(prev => !prev)}} $show={isShowDemo} >
-                    <img src={isShowDemo ? Show : Hide}/>
+              <ImageShow
+                // onClick={() => {setIsShowDemo(prev => !prev)}}
+                $show={isShowDemo} >
+                   {isShowDemo ? <Icons>✨🏆✨</Icons> : <Icons>⏱️</Icons>} 
                   </ImageShow>
               
                   <div style={{flex: 1}}></div>
@@ -362,10 +371,19 @@ const Tag = ({color, changeColor, taskId}) => {
     // onDoubleClick={() => {setIsPik(prev => !prev)}}
     >
         {isPik ?
-        <ColorTeg $color={color} $rotateFrames={rotateFrames} $isAnimate={color === 'red'}></ColorTeg>:
+        <>
+        <ColorTeg $color={color} $rotateFrames={rotateFrames} $isAnimate={color === 'red'}></ColorTeg>
+        {color === 'red' ? <Icons>🔥</Icons> : ''}
+        {color === 'green' ? <Icons>🚀</Icons> : ''}
+        {color === 'blue' ? <Icons>🗿</Icons> : ''}
+        {color === 'gray' ? <Icons>🏄‍♂️</Icons> : ''}
+        </>
+        :
         <ColorTegChoice>  
         {colors.map(color => (
-          <CircTag key={color} onClick={() => {handlerChangeColor(color)}} $color={color}></CircTag>
+          <CircTag key={color} onClick={() => {handlerChangeColor(color)}} $color={color}>
+            
+          </CircTag>
         ))}
         </ColorTegChoice>
         }

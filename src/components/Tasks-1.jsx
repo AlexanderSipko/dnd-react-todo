@@ -187,7 +187,7 @@ class App extends React.Component {
       status:{value:'-'},
       date_expected:{value:'2024'},
       effective_expected:{value:0},
-      star:{value:1},
+      star:{value:0},
       show:{value:false},
       color:{value:'gray'}
     };

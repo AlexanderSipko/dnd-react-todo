@@ -54,7 +54,8 @@ class InnerTask extends React.PureComponent {
   
   render() {
     return this.props.tasks.map((task, index) => {
-      return <DraggableTask key={task.id} task={task} index={index} changeStar={this.props.changeStar} changeColor={this.props.changeColor} />
+      return <DraggableTask key={task.id} task={task} index={index} changeStar={this.props.changeStar} changeColor={this.props.changeColor} 
+      columnId={this.props.columnId}/>
     })
   }
 }
@@ -94,7 +95,8 @@ export default class Column extends React.Component {
               $isDraggingOver={snapshot.isDraggingOver}
             >
               <InnerTask tasks={this.props.tasks} changeStar={this.props.changeStar}
-              changeColor={this.props.changeColor}/>
+              changeColor={this.props.changeColor}
+              columnId={this.props.column.id}/>
               {provided.placeholder}
               
             </TaskList>
