@@ -69,11 +69,12 @@ const TaskIdDate = styled.p`
 
     span {
       /* margin: 0px 0px 0px 5px; */
-      &::before {
+      &:first-child::after {
         content: '-';
       }
       &:first-child::before {
-        content: 'id';
+        content: '🆔 ';
+        opacity: 0.5;
       }
     }
 `
@@ -171,6 +172,14 @@ const Icons = styled.span`
   opacity: 0.5;
 `
 
+const IconsTarget = styled.p`
+  display: inline;
+  margin: 0 3px 0 3px;
+  padding: 0;
+  text-align: center;
+  opacity: 0.7;
+`
+
 const TaskCard = ({provided={}, snapshot={}, task={}, changeStar, changeColor, columnId}) => {
   const nameLength = 45
 
@@ -221,8 +230,17 @@ const TaskCard = ({provided={}, snapshot={}, task={}, changeStar, changeColor, c
               <TaskIdDate $isDragging={snapshot.isDragging}>
                 <span>{task.unique_number.value}</span>
                 <span>{task.id}</span>
-                <span {...provided.dragHandleProps}>{task.date_expected.value}</span>
-                <span>₱{task.effective_expected.value}</span>
+                <span {...provided.dragHandleProps}>
+                  <IconsTarget>
+                    🕢
+                  </IconsTarget>
+                  {task.date_expected.value}</span>
+                <span>
+                  <IconsTarget>
+                    🎯
+                  </IconsTarget>
+                  {task.effective_expected.value}
+                </span>
               </TaskIdDate>
               <WrapperTitle $isAbbreviateText={isAbbreviateText} >
               <Department onClick={() => {setIsAbbreviateText(prev => !prev)}}>
