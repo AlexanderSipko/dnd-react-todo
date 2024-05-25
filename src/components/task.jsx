@@ -248,7 +248,7 @@ const TaskCard = ({provided={}, snapshot={}, task={}, changeStar, changeColor}) 
                 {task.task_create_user.value}
                 </p>
                 <p>
-                {isShowUser? task.task_doer_user_text.value || '...' : task.task_doer_user_text.value.slice(0, nameLength/2)}
+                {isShowUser? task.task_doer_user_text.value || '...' : task.task_doer_user_text.value.slice(0, nameLength/3)}
                 </p>
               </TaskCreatorDoer>
 
