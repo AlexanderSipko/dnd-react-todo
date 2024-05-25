@@ -217,7 +217,7 @@ class Board extends React.Component {
               tasks:this.state.tasks,
               // TODO dispatch updateState in tasks
               handlerAddTask:this.handlerAddTask,
-              columnEffect:this.countEffect,
+              columnEffect:this.state.columnEffect,
               changeStar:this.changeStar,
               changeColor:this.changeColor
           }
