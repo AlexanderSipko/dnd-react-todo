@@ -160,6 +160,13 @@ export default TextEditor
 
 class InputAreaPure extends React.PureComponent {
 
+    constructor(props) {
+        super(props);
+        this.state = { 
+            show: false
+        };
+    }
+
     countDoneStatus (taskList) {
         const allTasks = taskList.length
         const doneTasks = taskList.filter(task => task.done).length
@@ -172,11 +179,14 @@ class InputAreaPure extends React.PureComponent {
         
         <span>{percent} %</span></>
     }
+
+    
     
     render() {
+        
       return <>
-            <CountTask>{this.countDoneStatus(this.props.initialContent[this.props.taskId])}</CountTask>
-                {this.props.initialContent[this.props.taskId].map((taskINlist, index) => (
+            <CountTask onClick={() => (this.setState({show:!this.state.show}))}>{this.countDoneStatus(this.props.initialContent[this.props.taskId])}</CountTask>
+                {this.state.show && this.props.initialContent[this.props.taskId].map((taskINlist, index) => (
                     <InputArea key={taskINlist.id}
                         index={index}
                         taskId={this.props.taskId}
