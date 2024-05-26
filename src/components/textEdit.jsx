@@ -90,14 +90,14 @@ const BlockTasksList = {
 }
 
 const CountTask = styled.div`
-    color: #d9a5a5;
+    color: #d8d4d4;
     font-size: 12px;
     display: grid;
-    grid-template-columns: 40px auto 40px;
+    grid-template-columns: 25px auto 35px;
     align-content: center;
     align-items: center;
     grid-gap: 1px;
-    padding-right: 8px;
+    /* padding-right: 8px; */
     span:last-child {
         display: flex;
         justify-content: flex-end;
@@ -166,8 +166,8 @@ class InputAreaPure extends React.PureComponent {
         const percent = ((doneTasks / allTasks) * 100).toFixed(0);
         // return `${doneTasks}/${allTasks} - ${percent}%`
         return <><span>{doneTasks}/{allTasks}</span>
-        <div style={{'background':'#c6e6f7', 'height':'5px', 'borderRadius':'2px'}}>
-            <div style={{'background':'green', 'height':'5px', 'borderRadius':'2px', 'width': percent + '%'}}></div>
+        <div style={{'background':'#ececec', 'height':'5px', 'borderRadius':'2px'}}>
+            <div style={{'background':(percent >= 100 ? 'green' : '#ff938d'), 'height':'5px', 'borderRadius':'2px', 'width': percent + '%'}}></div>
         </div>
         
         <span>{percent} %</span></>
