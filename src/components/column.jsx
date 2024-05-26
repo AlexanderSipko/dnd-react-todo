@@ -11,7 +11,8 @@ const Container = styled.div`
   overflow: overlay;
   border: 1px solid lightgrey;
   border-radius: 12px;
-  width: 72mm;
+  /* width: 72mm; */
+  width: 90mm;
   height: max-content;
   display: flex;
   flex-direction: column;
