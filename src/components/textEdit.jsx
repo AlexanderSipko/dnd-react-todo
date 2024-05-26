@@ -97,6 +97,7 @@ const CountTask = styled.div`
     align-content: center;
     align-items: center;
     grid-gap: 1px;
+    cursor: pointer;
     /* padding-right: 8px; */
     span:last-child {
         display: flex;
