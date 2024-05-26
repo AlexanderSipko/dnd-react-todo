@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import DraggableTask from './task';
 
+
+
 const Container = styled.div`
-  margin: 8px;
+  margin: 8px 4px 8px 8px;
   max-height:95vh;
   overflow: overlay;
   border: 1px solid lightgrey;
@@ -40,6 +42,7 @@ const CountEffect = styled.div`
 `
 
 const TaskList = styled.div`
+  margin-top: 8px;
   padding: 8px;
   background-color: ${({ $isDraggingOver }) => ($isDraggingOver ? '#d0f8cd' : '#f1f2f4')};
   transition: background-color 0.2s ease;

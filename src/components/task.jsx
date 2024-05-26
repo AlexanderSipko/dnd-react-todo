@@ -3,6 +3,8 @@ import {styled, keyframes} from 'styled-components';
 import { Draggable } from 'react-beautiful-dnd';
 import { useDoubleTap } from 'use-double-tap';
 import Star from '../assets/star.png'
+import TextEditor from './textEdit'
+// import BlockNote from './blokNotView'
 
 export default class DraggableTask extends React.Component {
   render() {
@@ -172,9 +174,9 @@ const Icons = styled.span`
   opacity: 0.5;
 `
 
-const IconsTarget = styled.p`
-  display: inline;
-  margin: 0 3px 0 3px;
+const IconsTarget = styled.i`
+  /* display: inline; */
+  margin: 10px 3px 0 3px;
   padding: 0;
   text-align: center;
   opacity: 0.7;
@@ -269,7 +271,9 @@ const TaskCard = ({provided={}, snapshot={}, task={}, changeStar, changeColor, c
                 {isShowDescriptions && task.description.value.length > 0 ? 
                   task.description.value : 
                   task.description.value.slice(0, nameLength/2)}
+                  
                 </DescribeTask>
+                
               <TaskCreatorDoer
                 $isShowUser={isShowUser}
                 onDoubleClick={() => {setIsShowUser(prev => !prev)}}>
@@ -282,6 +286,8 @@ const TaskCard = ({provided={}, snapshot={}, task={}, changeStar, changeColor, c
                 {isShowUser? task.task_doer_user_text.value || '...' : task.task_doer_user_text.value.slice(0, nameLength/3)}
                 </p>
               </TaskCreatorDoer>
+              
+              <TextEditor taskId={task.id}/>
 
               <ImageDiv >
               {[1, 2, 3].map(star => (

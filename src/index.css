@@ -2,3 +2,7 @@ body {
     background-color: rgb(226, 247, 226);
     font-family: sans-serif;
 }
+
+input div {
+    box-sizing: border-box;
+}

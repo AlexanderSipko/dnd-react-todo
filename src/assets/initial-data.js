@@ -330,4 +330,29 @@ const initialData = {
   };
   
 export default initialData;
- 
+
+
+const InitialTaskList = {
+    '2094':[
+        {id:'2094-1', value:'1. под задача //', done:false}
+    ],
+    '2092':[
+        {id:'2092-1', value:'1. решить вопрос', done:false}
+    ],
+    '2093':[
+        {id:'2093-1', value:'1. сформировать тз\n- придумать концепт\n\t - назначить дату', done:true},
+        {id:'2093-2', value:'2. отладить код', done:true},
+        {id:'2093-3', value:'3. провести тест', done:true}
+    ],
+    '2102':[
+        {id:'2102-1', value:'1. определить условия', done:false},
+        {id:'2102-2', value:'2. выбрать решение', done:false}
+    ],
+    '2091':[
+        {id:'2091-1', value:'1 определить ', done:true},
+        {id:'2091-2', value:'2 начать тест', done:false},
+        {id:'2091-3', value:'3 выпустить в прод', done:false}
+    ],
+}
+
+export {InitialTaskList};
