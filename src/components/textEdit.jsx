@@ -136,23 +136,20 @@ const TextEditor = ({taskId}) => {
         return "Loading task...";
     }
     // console.log(taskId)
+
+    if (initialContent[taskId] === undefined) {
+        return null
+    }
     
     return (
         <AddTasksList>
-            {initialContent[taskId] !== undefined &&
-            <>
-                
-                <InputAreaPure
+            <InputAreaPure
                     // key={taskINlist.id}
-                    taskId={taskId}
-                    setInitialContent={setInitialContent}
-                    initialContent={initialContent}
-                />
-            </>
-                
-            }
+                taskId={taskId}
+                setInitialContent={setInitialContent}
+                initialContent={initialContent}
+            />
         </AddTasksList>
-        
     )
 }
 
@@ -183,6 +180,8 @@ class InputAreaPure extends React.PureComponent {
     
     
     render() {
+    
+    
         
       return <>
             <CountTask onClick={() => (this.setState({show:!this.state.show}))}>{this.countDoneStatus(this.props.initialContent[this.props.taskId])}</CountTask>
