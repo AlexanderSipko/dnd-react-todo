@@ -261,8 +261,8 @@ const TaskCard = ({provided={}, snapshot={}, task={}, changeStar, changeColor, c
               
               <DescribeTask
                 $isShowDescriptions={isShowDescriptions}
-                {...bindTaskDescriptions}
-                // onDoubleClick={() => {setIsShowDescriptions(prev => !prev)}}
+                // {...bindTaskDescriptions}
+                onClick={() => {setIsShowDescriptions(prev => !prev)}}
                 >
                 
                 {task.description.value.length !== 0 && <Icons>📋</Icons>}
@@ -276,7 +276,7 @@ const TaskCard = ({provided={}, snapshot={}, task={}, changeStar, changeColor, c
                 
               <TaskCreatorDoer
                 $isShowUser={isShowUser}
-                onDoubleClick={() => {setIsShowUser(prev => !prev)}}>
+                onClick={() => {setIsShowUser(prev => !prev)}}>
                 <p>
                   <Icons>👨‍💼</Icons>
                 {task.task_create_user.value}
@@ -397,8 +397,9 @@ const Tag = ({color, changeColor, taskId}) => {
   );
 
   return (
-    <TagDiv {...bindTaskTag}
-    // onDoubleClick={() => {setIsPik(prev => !prev)}}
+    <TagDiv 
+    // {...bindTaskTag}
+    onClick={() => {setIsPik(prev => !prev)}}
     >
         {isPik ?
         <>
@@ -411,7 +412,9 @@ const Tag = ({color, changeColor, taskId}) => {
         :
         <ColorTegChoice>  
         {colors.map(color => (
-          <CircTag key={color} onClick={() => {handlerChangeColor(color)}} $color={color}>
+          <CircTag key={color} onClick={() => {
+            handlerChangeColor(color); setIsPik(prev => !prev)
+            }} $color={color}>
             
           </CircTag>
         ))}
