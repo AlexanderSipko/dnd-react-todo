@@ -7,10 +7,10 @@ const tasks = {
               "value": "2405056"
           },
           "name": {
-              "value": "Авто формирование документов ДСЕ"
+              "value": "SR01800583  - включение технической УЗ в группу доступа к АС DocStore"
           },
           "division_name": {
-              "value": "Прочее"
+              "value": "Дистанционная ипотека"
           },
           "description": {
               "value": ""
@@ -307,12 +307,12 @@ const initialData = {
       'column-2': {
         id: 'column-2',
         title: 'В работе',
-        taskIds: ['2102', '2091'],
+        taskIds: ['2091'],
       },
       'column-3': {
         id: 'column-3',
         title: 'Готово',
-        taskIds: ['2095'],
+        taskIds: ['2095', '2102'],
       },
       'column-4': {
         id: 'column-4',
@@ -345,8 +345,8 @@ const InitialTaskList = {
         {id:'2093-3', value:'3. провести тест', done:true}
     ],
     '2102':[
-        {id:'2102-1', value:'1. определить условия', done:false},
-        {id:'2102-2', value:'2. выбрать решение', done:false}
+        {id:'2102-1', value:'1. доступы необходимо оформлять по другой заявке', done:true},
+        {id:'2102-2', value:'2. УЗ включили в группу', done:true},
     ],
     '2091':[
         {id:'2091-1', value:'1 определить ', done:true},

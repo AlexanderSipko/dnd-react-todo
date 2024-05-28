@@ -3,6 +3,16 @@ import {styled, keyframes} from 'styled-components';
 import {InitialTaskList} from '../assets/initial-data'
 import { loadFromStorage, saveToStorage } from '../Logic/loadSaveStorage';
 
+const AddTask = styled.div`
+    margin-left: 5px;
+    color: #000000;
+    opacity: 0.4;
+    cursor: pointer;
+    &:hover {
+        /* color: #8c8c8c; */
+        opacity: 0.8;
+    }
+`
 const AddTasksList = styled.div`
     min-height: 130%;
     /* width: 100%; */
@@ -39,7 +49,6 @@ const InputText = styled.textarea`
     /* min-height: 30px; */
     /* max-height: 160px; */
 `
-
 const InputTextDone = styled.textarea`
     outline: none;
     border: none;
@@ -51,10 +60,27 @@ const InputTextDone = styled.textarea`
     white-space: break-spaces;
     text-decoration: line-through;
 `
-
 const Icons = styled.span`
     opacity: 0.2;
+    cursor: pointer;
+    &:hover {
+        opacity: 0.8;
+        color: red;
+    }
     /* size: 10px; */
+`
+const IconsAdd = styled.span`
+    margin-right: 5px;
+`
+
+const IconsDone = styled.span`
+    opacity: 0.2;
+    cursor: pointer;
+    &:hover {
+        opacity: 0.8;
+        color: green;
+    }
+/* size: 10px; */
 `
 const WrapperIcons = styled.div`
     display: flex;
@@ -90,7 +116,7 @@ const BlockTasksList = {
 }
 
 const CountTask = styled.div`
-    color: #d8d4d4;
+    color: ${props => (props.$show ? 'gary' : '#d8d4d4')};
     font-size: 12px;
     display: grid;
     grid-template-columns: 25px auto 35px;
@@ -105,13 +131,35 @@ const CountTask = styled.div`
     }
 `
 
+const AddNewTask = ({task_id, tasksList, setInitialContent, setShow}) => {
+    const addTask = () => {
+        let currentTaskList = tasksList[task_id]
+        if (currentTaskList !== undefined) {
+            currentTaskList.push({id: task_id + '-' + (currentTaskList.length + 1), value: '', done: false})
+        } else {
+            currentTaskList = [{id: task_id + '-' + 1, value: '', done: false}]
+        }
+        const newTaskList = {...tasksList, [task_id]:currentTaskList}
+        setInitialContent(newTaskList)
+        setShow(true)
+    }
+    return (
+        <AddTask onClick={() => {addTask()}}>
+            <IconsAdd>✏️</IconsAdd>
+             + добавить задачу
+        </AddTask>
+        
+    )
+}
+
 const TextEditor = ({taskId}) => {
     const [initialContent, setInitialContent] = useState("loading");
+    const [show, setShow] = useState(false);
 
     useEffect(() => {
         loadFromStorage().then((content) => {
             if (content === undefined) {
-                console.log('TODO')
+                // console.log('TODO')
                 setInitialContent(InitialTaskList);
                 saveToStorage(InitialTaskList)
             } else {
@@ -139,31 +187,40 @@ const TextEditor = ({taskId}) => {
     // console.log(taskId)
 
     if (initialContent[taskId] === undefined) {
-        return null
+        return <AddNewTask
+                    task_id={taskId}
+                    tasksList={initialContent}
+                    setInitialContent={setInitialContent}
+                    setShow={setShow}
+                />
     }
     
     return (
-        <AddTasksList>
+        <>
+        <AddNewTask 
+            task_id={taskId} 
+            tasksList={initialContent}
+            setInitialContent={setInitialContent}
+            setShow={setShow}
+        />
+            <AddTasksList>
             <InputAreaPure
                     // key={taskINlist.id}
                 taskId={taskId}
                 setInitialContent={setInitialContent}
                 initialContent={initialContent}
+                show={show}
+                setShow={setShow}
             />
         </AddTasksList>
+        </>
+        
     )
 }
 
 export default TextEditor
 
 class InputAreaPure extends React.PureComponent {
-
-    constructor(props) {
-        super(props);
-        this.state = { 
-            show: false
-        };
-    }
 
     countDoneStatus (taskList) {
         const allTasks = taskList.length
@@ -178,22 +235,23 @@ class InputAreaPure extends React.PureComponent {
         <span>{percent} %</span></>
     }
 
-    
-    
     render() {
     
-    
-        
       return <>
-            <CountTask onClick={() => (this.setState({show:!this.state.show}))}>{this.countDoneStatus(this.props.initialContent[this.props.taskId])}</CountTask>
-                {this.state.show && this.props.initialContent[this.props.taskId].map((taskINlist, index) => (
-                    <InputArea key={taskINlist.id}
-                        index={index}
-                        taskId={this.props.taskId}
-                        taskINlist={taskINlist}
-                        setInitialContent={this.props.setInitialContent}
-                    />
-                ))}
+                <CountTask
+                    $show={this.props.show}
+                    onClick={() => {
+                    // this.setState({show:!this.state.show});
+                    this.props.setShow(prev => !prev)
+                }}>{this.countDoneStatus(this.props.initialContent[this.props.taskId])}</CountTask>
+                    {this.props.show && this.props.initialContent[this.props.taskId].map((taskINlist, index) => (
+                        <InputArea key={taskINlist.id}
+                            index={index}
+                            taskId={this.props.taskId}
+                            taskINlist={taskINlist}
+                            setInitialContent={this.props.setInitialContent}
+                        />
+                    ))}
             </>
     }
   }
@@ -214,14 +272,36 @@ const InputArea = ({index, taskId, taskINlist, setInitialContent}) => {
         setRows(value.split('\n').length)
     }
 
+    const changeStatus = (done) => {
+        setInitialContent(previous => {
+            const newTasks = previous
+            newTasks[taskId][index].done = done
+            return  {...newTasks}
+        })
+    }
+
+    const deleteTask = () => {
+        setInitialContent(previous => {
+            const newTasks = previous
+            if (newTasks[taskId].length === 1) {
+                delete previous[taskId]
+            } else {
+                newTasks[taskId].splice(index, 1)
+            }
+            return  {...newTasks}
+        })
+    }
+
     return (
         <>
             <WrapperInput>
                 
                 <WrapperIcons>
                     {taskINlist.done ?
-                        <Icons>✅</Icons> :
-                        <Icons>v</Icons>
+                        <Icons onClick={() => {changeStatus(false)}}>✅</Icons> :
+                        value.length > 0 ? 
+                        <IconsDone onClick={() => {changeStatus(true)}}>v</IconsDone>:
+                        <span></span>
                     }
                 </WrapperIcons>
                 {taskINlist.done ?
@@ -244,7 +324,7 @@ const InputArea = ({index, taskId, taskINlist, setInitialContent}) => {
                     </InputText>
                 }
                 <WrapperIcons>
-                    <Icons>x</Icons>
+                    <Icons onClick={() => {deleteTask()}}>x</Icons>
                 </WrapperIcons>
             </WrapperInput>
             <HorizontalBorder/>

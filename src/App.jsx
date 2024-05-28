@@ -14,6 +14,7 @@ function App_1() {
       <Container>
         <LeftMenu/>
           <Board tasksArray={initialData}/>
+          
       </Container>
   )
 }
