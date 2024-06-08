@@ -8,7 +8,7 @@ const Container = styled.div`
   display: flex;
 `;
 
-class InnerList extends React.PureComponent {
+class RenderColumn extends React.PureComponent {
 
   render() {
     const { column, taskMap, index } = this.props;
@@ -26,7 +26,7 @@ class InnerList extends React.PureComponent {
 }
 
 
-const RenderList = ({props}) => {
+const RenderColumns = ({props}) => {
 
     return (
         <Container {...props.providedDraggableProps} ref={props.providedInnerRef}>
@@ -34,7 +34,7 @@ const RenderList = ({props}) => {
                 const column = props.columns[columnId];
                 // const isDropDisabled = false // index < this.state.homeIndex;
             return (
-              <InnerList
+              <RenderColumn
                     key={column.id}
                     column={column}
                     index={index}
@@ -52,7 +52,7 @@ const RenderList = ({props}) => {
 }
 
 
-export default RenderList
+export default RenderColumns
 
 
 

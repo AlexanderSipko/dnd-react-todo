@@ -72,7 +72,6 @@ const Icons = styled.span`
 const IconsAdd = styled.span`
     margin-right: 5px;
 `
-
 const IconsDone = styled.span`
     opacity: 0.2;
     cursor: pointer;
@@ -269,7 +268,7 @@ const InputArea = ({index, taskId, taskINlist, setInitialContent}) => {
             newTasks[taskId][index].value = value
             return  {...newTasks}
         })
-        setRows(value.split('\n').length)
+        setRows(value.split('\n').length + 1)
     }
 
     const changeStatus = (done) => {
@@ -316,10 +315,10 @@ const InputArea = ({index, taskId, taskINlist, setInitialContent}) => {
                     <InputText
                         rows={rows}
                         value={value}
+                        spellcheck="true"
                         onDoubleClick={() => {
                             rows === 1 ? setRows(value.split('\n').length): setRows(1)}
                         }
-                        // onMouseOut={() => {setRows(1)}}
                         onChange={(e) => {handlerOnChange(e.target.value)}}>
                     </InputText>
                 }

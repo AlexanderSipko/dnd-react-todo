@@ -1,5 +1,5 @@
  
-const initialData = {
+const demoDashboard = {
     tasks: {
         "2102": {
             id: "2102",
@@ -266,12 +266,9 @@ const initialData = {
     columnOrder: [
         'column-1', 'column-2', 'column-3', 'column-4'
     ],
-  };
+};
   
-export default initialData;
-
-
-const InitialTaskList = {
+const demoUnderTask = {
     '2094':[
         {id:'2094-1', value:'1. под задача //', done:false}
     ],
@@ -294,4 +291,5 @@ const InitialTaskList = {
     ],
 }
 
-export {InitialTaskList};
+
+export { demoDashboard, demoUnderTask }

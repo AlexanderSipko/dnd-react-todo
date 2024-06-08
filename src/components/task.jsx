@@ -218,7 +218,7 @@ const TaskCard = ({provided={}, snapshot={}, task={}, changeStar, changeColor, c
     // console.log('asd')}
   }
   );
-
+  // console.log(this.props)
   return (
     <div {...provided.draggableProps} ref={provided.innerRef}>
           <Container
@@ -327,7 +327,6 @@ const TagDiv = styled.div`
     align-items:center;
     justify-content: flex-end;
 `
-
 const rotateFrames = keyframes`
   0% {
     width: 20px;
@@ -339,8 +338,7 @@ const rotateFrames = keyframes`
   100% {
     width: 20px;
   }
-`;
-
+`
 const ColorTeg = styled.div`
   border-radius: 6px;
   height: 8px;
@@ -354,7 +352,6 @@ const ColorTeg = styled.div`
     }
   animation: ${props => (props.$isAnimate && (props.$rotateFrames))} 5s ease-in-out infinite;
 `
-
 const ColorTegChoice = styled.div`
     /* position:relative; */
     /* border-radius: 10px; */

@@ -2,7 +2,6 @@ import LeftMenu from './layout/LeftMenu';
 import Board from './layout/Board'
 import styled from 'styled-components';
 import '@atlaskit/css-reset'
-import initialData from './assets/initial-data'
 
 const Container = styled.div`
   display: flex;
@@ -13,8 +12,9 @@ function App_1() {
   return (
       <Container>
         <LeftMenu/>
-          <Board tasksArray={initialData}/>
-          
+          <Board/>
+          <a href="https://www.avito.ru/kyrykkale/mototsikly_i_mototehnika/voge_rally_300_3702068424"
+          >test</a>
       </Container>
   )
 }
